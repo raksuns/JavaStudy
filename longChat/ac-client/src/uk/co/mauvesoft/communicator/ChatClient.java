@@ -1,12 +1,6 @@
 package uk.co.mauvesoft.communicator;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.Authenticator;
-import java.util.ArrayList;
-import java.util.concurrent.LinkedBlockingQueue;
-
+import android.net.http.AndroidHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.Credentials;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -17,7 +11,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.net.http.AndroidHttpClient;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.Authenticator;
+import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class ChatClient implements Runnable {
 
@@ -173,10 +172,10 @@ public class ChatClient implements Runnable {
 	
 	public static boolean validateCredentials(UserAccount u) throws ConnectionException {
 		AndroidHttpClient httpclient = AndroidHttpClient.newInstance("WebchatClient/0.1 (Android)");
-		HttpGet req = new HttpGet("https://webchat.vertulabs.co.uk/_session");
+		HttpGet req = new HttpGet("http://114.200.199.6/luxChat/login");
 		
-		Credentials creds = u.getCredentials();
-		req.addHeader(org.apache.http.impl.auth.BasicScheme.authenticate(creds, "UTF-8", false));
+//		Credentials creds = u.getCredentials();
+//		req.addHeader(org.apache.http.impl.auth.BasicScheme.authenticate(creds, "UTF-8", false));
 		
 		try {
 			HttpResponse resp = httpclient.execute(req);
