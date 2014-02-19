@@ -1,8 +1,6 @@
 package uk.co.mauvesoft.communicator;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-
+import android.net.http.AndroidHttpClient;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.Credentials;
 import org.apache.http.client.methods.HttpGet;
@@ -10,7 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.net.http.AndroidHttpClient;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 
 public class MessagePoller extends Thread {
@@ -51,11 +50,12 @@ public class MessagePoller extends Thread {
 		HttpGet req;
 		HttpResponse resp;
 		
-		if (latest_message > 0) {
-			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/?since=" + latest_message);
-		} else {
-			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/today");
-		}
+//		if (latest_message > 0) {
+//			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/?since=" + latest_message);
+//		} else {
+//			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/today");
+//		}
+		req = new HttpGet(StaticData.URL_CHAT_ON);
 		req.addHeader(org.apache.http.impl.auth.BasicScheme.authenticate(creds, "UTF-8", false));
 		
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream(256);

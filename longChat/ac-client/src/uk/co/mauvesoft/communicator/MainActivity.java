@@ -47,6 +47,7 @@ public class MainActivity extends Activity implements MessageReceiver, TextView.
 	
 	ArrayAdapter<Message> messages;
 	String room;
+	String receiver;
 	ChatService.ChatServiceBinder chatservice = null;
 	ListView messagepane;
 	
@@ -83,6 +84,7 @@ public class MainActivity extends Activity implements MessageReceiver, TextView.
         input.setOnEditorActionListener(this);
         
         room = getIntent().getStringExtra("room");
+	    receiver = getIntent().getStringExtra("receiver");
         setTitle(room);
 		
 		bindService(new Intent(this, ChatService.class), chatserviceconnection, BIND_AUTO_CREATE);
@@ -90,7 +92,6 @@ public class MainActivity extends Activity implements MessageReceiver, TextView.
     
 	@Override
 	protected void onDestroy() {
-		// TODO Auto-generated method stub
 		super.onDestroy();
 		if (chatservice != null)
 			chatservice.removeMessageReceiver(MainActivity.this);
@@ -117,7 +118,7 @@ public class MainActivity extends Activity implements MessageReceiver, TextView.
 		if (chatservice == null) return false;
 		
 		try {
-			chatservice.sendMessage(room, v.getText().toString());
+			chatservice.sendMessage(room, receiver, v.getText().toString());
 		} catch (NoStoredPreferences e) { return false; }
 		v.setText("");
 		return true;

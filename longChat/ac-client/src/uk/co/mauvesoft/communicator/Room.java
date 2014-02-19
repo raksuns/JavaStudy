@@ -1,40 +1,72 @@
 package uk.co.mauvesoft.communicator;
 
 public class Room {
-	public String name;
-	public int unread = 0;
-	
-	public Room(String name) {
-		this.name = name;
+
+	private int roomId;
+	private String sellerEmail;
+	private String buyerEmail;
+	private int productSeq;
+	private String brandName;
+	private String sellerName;
+	private String buyerName;
+
+	public Room() {
+
 	}
 
-	@Override
-	public String toString() {
-		return name;
+	public int getRoomId() {
+		return roomId;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+	public void setRoomId(int roomId) {
+		this.roomId = roomId;
 	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (!(obj instanceof Room))
-			return false;
-		Room other = (Room) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		return true;
+	public String getSellerEmail() {
+		return sellerEmail;
+	}
+
+	public void setSellerEmail(String sellerEmail) {
+		this.sellerEmail = sellerEmail;
+	}
+
+	public String getBuyerEmail() {
+		return buyerEmail;
+	}
+
+	public void setBuyerEmail(String buyerEmail) {
+		this.buyerEmail = buyerEmail;
+	}
+
+	public int getProductSeq() {
+		return productSeq;
+	}
+
+	public void setProductSeq(int productSeq) {
+		this.productSeq = productSeq;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+	public void setBrandName(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+
+	public String getBuyerName() {
+		return buyerName;
+	}
+
+	public void setBuyerName(String buyerName) {
+		this.buyerName = buyerName;
 	}
 }

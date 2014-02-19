@@ -7,15 +7,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 public class RoomsListActivity extends Activity implements ServiceConnection {
 
@@ -36,14 +31,14 @@ public class RoomsListActivity extends Activity implements ServiceConnection {
 			final Room r = getItem(position);
 			
 			Button button = (Button) convertView.findViewById(R.id.roomname);
-			button.setText(r.name);
+			button.setText(r.getRoomId());
 			
-			TextView unread = (TextView) convertView.findViewById(R.id.unread);
-			if (r.unread > 0) {
-				unread.setText(Integer.valueOf(r.unread).toString());
-			} else {
-				unread.setVisibility(View.INVISIBLE);
-			}
+//			TextView unread = (TextView) convertView.findViewById(R.id.unread);
+//			if (r.unread > 0) {
+//				unread.setText(Integer.valueOf(r.unread).toString());
+//			} else {
+//				unread.setVisibility(View.INVISIBLE);
+//			}
 
 	        button.setOnClickListener(new View.OnClickListener() {
 	             public void onClick(View v) {
@@ -136,7 +131,8 @@ public class RoomsListActivity extends Activity implements ServiceConnection {
 
 	public void enterRoom(Room r) {
 		Intent i = new Intent(this, MainActivity.class);
-		i.putExtra("room", r.name);
+		i.putExtra("room", r.getRoomId());
+		i.putExtra("receiver", r.getBuyerEmail());
 		startActivity(i);
 	}
 	

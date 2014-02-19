@@ -171,8 +171,8 @@ public class ChatClient implements Runnable {
 	}
 	
 	public static boolean validateCredentials(UserAccount u) throws ConnectionException {
-		AndroidHttpClient httpclient = AndroidHttpClient.newInstance("WebchatClient/0.1 (Android)");
-		HttpGet req = new HttpGet("http://114.200.199.6/luxChat/login");
+		AndroidHttpClient httpclient = AndroidHttpClient.newInstance("ChatClient Android");
+		HttpGet req = new HttpGet(StaticData.URL_LOGIN);
 		
 //		Credentials creds = u.getCredentials();
 //		req.addHeader(org.apache.http.impl.auth.BasicScheme.authenticate(creds, "UTF-8", false));

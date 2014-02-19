@@ -33,8 +33,8 @@ public class ChatService extends Service {
 			return new ArrayList<Message>(list);
 		}
 		
-		public void sendMessage(String room, String message) throws NoStoredPreferences {
-			ChatService.this.sendMessage(room, message);
+		public void sendMessage(String room, String receiver, String message) throws NoStoredPreferences {
+			ChatService.this.sendMessage(room, receiver, message);
 		}
 		
 		public void setUserAccount(UserAccount u) {
@@ -131,13 +131,14 @@ public class ChatService extends Service {
 		dispatchMessageReceived(m);
 	}
 
-	protected void sendMessage(String room, String message) throws NoStoredPreferences {
-		String url = "https://webchat.vertulabs.co.uk/rooms/" + room + "/";
+	protected void sendMessage(String room, String receiver, String message) throws NoStoredPreferences {
 		AsyncHttpClient client = getClient();
 		
 		RequestParams params = new RequestParams();
+		params.put("receiver", receiver);
+		params.put("talk_room_id", room);
 		params.put("message", message);
-		client.post(this, url, params, new AsyncHttpResponseHandler() {});
+		client.post(this, StaticData.URL_SEND_CHAT, params, new AsyncHttpResponseHandler() {});
 	}
 	
 	protected UserAccount getUserAccount() throws NoStoredPreferences {
@@ -166,7 +167,7 @@ public class ChatService extends Service {
 		messages = new HashMap<String, List<Message>>();
 		stopPoller();
 		
-		client.get(this, "https://webchat.vertulabs.co.uk/user/catchup", new JsonHttpResponseHandler() {
+		client.get(this, StaticData.URL_CHAT_ON, new JsonHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(JSONObject resp) {
 		    	try {
@@ -174,14 +175,16 @@ public class ChatService extends Service {
 		    	} catch (JSONException e) {
 		    		return;  // don't continue; this could cause a massive blob to be downloaded
 		    	}
+
 		    	try {
 		    		username = resp.getString("username");
 		    	} catch (JSONException e) {}
 		    	
 		    	try {
-		    		rooms = roomsFromJSON(resp.getJSONArray("rooms"));
+		    		rooms = roomsFromJSON(resp.getJSONArray("list"));
 		    	} catch (JSONException e) {}
-		    	for (Room r : rooms.values()) {
+
+			    for (Room r : rooms.values()) {
 		    		dispatchRoomJoined(r);
 		    	}
 		    	
@@ -241,10 +244,19 @@ public class ChatService extends Service {
 	
 	protected HashMap<String, Room> roomsFromJSON(JSONArray roomslist) {
 		HashMap<String, Room> rooms = new HashMap<String, Room>();
+		JSONObject room;
 		for (int i = 0; i < roomslist.length(); i++) {
     		try {
-    			Room r = new Room(roomslist.getString(i));
-    			rooms.put(r.name, r);
+			    room = roomslist.getJSONObject(i);
+    			Room r = new Room();
+			    r.setRoomId(room.getInt("talk_room_id"));
+			    r.setSellerEmail(room.getString("seller_email"));
+			    r.setBuyerEmail(room.getString("buyer_email"));
+			    r.setProductSeq(room.getInt("product_seq"));
+			    r.setBrandName(room.getString("brand_kor_name"));
+			    r.setSellerName(room.getString("seller_nickname"));
+			    r.setBuyerName(room.getString("buyer_nickname"));
+    			rooms.put(Integer.toString(r.getRoomId()), r);
     		} catch (JSONException e) {
     			e.printStackTrace();
     			continue;
