@@ -5,6 +5,8 @@ package uk.co.mauvesoft.communicator;
  */
 public class StaticData {
 
+	public static final String USER_AGENT = "WebChatClient/0.1 (Android)";
+
 	public static final String HTTP_CHAT_URL = "http://114.200.199.6/luxChat";
 
 	public static final String URL_LOGIN = HTTP_CHAT_URL + "/login";

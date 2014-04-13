@@ -14,14 +14,14 @@ import java.io.IOException;
 
 public class MessagePoller extends Thread {
 	protected Credentials creds;
-	
+
 	// Timestamp of latest message
 	long latest_message;
 	MessageReceiver receiver;
 	AndroidHttpClient httpclient;
-	
+
 	protected boolean keeprunning = true;
-	
+
 	public MessagePoller(UserAccount u, MessageReceiver receiver, long since) {
 		this.creds = u.getCredentials();
 		this.receiver = receiver;
@@ -29,12 +29,12 @@ public class MessagePoller extends Thread {
 		httpclient = AndroidHttpClient.newInstance("WebchatClient/0.1 (Android)");
 
 	}
-	
+
 	public void pleaseStop() {
 		keeprunning = false;
 		receiver = null;
 	}
-	
+
 	@Override
 	public void run() {
 		try {
@@ -45,24 +45,23 @@ public class MessagePoller extends Thread {
 			System.out.println("Failed to connect");
 		}
 	}
-	
+
 	public void receiveMessages() throws ConnectionException {
 		HttpGet req;
 		HttpResponse resp;
-		
-//		if (latest_message > 0) {
-//			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/?since=" + latest_message);
-//		} else {
-//			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/today");
-//		}
-		req = new HttpGet(StaticData.URL_CHAT_ON);
+
+		if (latest_message > 0) {
+			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/?since=" + latest_message);
+		} else {
+			req = new HttpGet("https://webchat.vertulabs.co.uk/user/messages/today");
+		}
 		req.addHeader(org.apache.http.impl.auth.BasicScheme.authenticate(creds, "UTF-8", false));
-		
+
 		ByteArrayOutputStream bytes = new ByteArrayOutputStream(256);
-		
+
 		try {
 			resp = httpclient.execute(req);
-			int status_code = resp.getStatusLine().getStatusCode(); 
+			int status_code = resp.getStatusLine().getStatusCode();
 			if (status_code != 200) {
 				throw new ConnectionException("Request return code " + status_code);
 			}
@@ -71,7 +70,7 @@ public class MessagePoller extends Thread {
 			e.printStackTrace();
 			throw new ConnectionException("Connection failed", e);
 		}
-		
+
 		JSONArray messages;
 		try {
 			messages = new JSONArray(bytes.toString());
@@ -92,7 +91,7 @@ public class MessagePoller extends Thread {
 			catch (JSONException e) {}
 		}
 	}
-	
+
 	public void finalize() {
 		httpclient.close();
 	}

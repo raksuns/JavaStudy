@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">luxChat</string>
+	<string name="menu_logout">로그아웃</string>
+	<string name="send_a_message">메시지 보내기</string>
+</resources>

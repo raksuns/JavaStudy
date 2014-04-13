@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/room_frame"
+    android:layout_width="match_parent"
+    android:layout_height="40dp" >
+
+    <Button
+        android:id="@+id/roomname"
+        style="@style/Dark"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/box"
+        android:ellipsize="end"
+        android:gravity="left|center_vertical"
+        android:paddingRight="80dp"
+        android:textAlignment="textStart" />
+
+    <TextView
+        android:id="@+id/unread"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_gravity="right|center"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/unread_bg"
+        android:gravity="center"
+        android:text="99+" />
+
+</FrameLayout>

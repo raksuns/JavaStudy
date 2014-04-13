@@ -37,7 +37,7 @@ public class ChatClient implements Runnable {
 		this.creds = u.getCredentials();
 		this.receiver = receiver;
 		this.latest_message = 0;
-		httpclient = AndroidHttpClient.newInstance("WebchatClient/0.1 (Android)");
+		httpclient = AndroidHttpClient.newInstance(StaticData.USER_AGENT);
 		outgoing = new LinkedBlockingQueue<Message>();
 		
 		send_thread = new Thread(new Runnable() {
@@ -174,8 +174,8 @@ public class ChatClient implements Runnable {
 		AndroidHttpClient httpclient = AndroidHttpClient.newInstance("ChatClient Android");
 		HttpGet req = new HttpGet(StaticData.URL_LOGIN);
 		
-//		Credentials creds = u.getCredentials();
-//		req.addHeader(org.apache.http.impl.auth.BasicScheme.authenticate(creds, "UTF-8", false));
+		Credentials creds = u.getCredentials();
+		req.addHeader(org.apache.http.impl.auth.BasicScheme.authenticate(creds, "UTF-8", false));
 		
 		try {
 			HttpResponse resp = httpclient.execute(req);

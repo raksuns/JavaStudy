@@ -1,0 +1,11 @@
+<resources>
+
+	<string name="title_activity_login">로그인</string>
+
+	<string name="prompt_username">이메일</string>
+	<string name="prompt_password">비번</string>
+	<string name="action_sign_in_short">로그인</string>
+	<string name="login_progress_signing_in">로그인중..&#8230;</string>
+	<string name="login_prompt">로그인 정보를 입력하세요.</string>
+
+</resources>

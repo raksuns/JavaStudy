@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Dark"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChatActivity" >
+
+    <ListView
+        android:id="@+id/messagepane"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:dividerHeight="5dp"
+        android:fadingEdgeLength="15dp"
+        android:padding="8dp"
+        android:transcriptMode="normal" android:layout_above="@+id/relativeLayout">
+
+    </ListView>
+
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="100dip" android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true" android:layout_alignParentBottom="true"
+		android:id="@+id/relativeLayout">
+		<EditText
+		    android:id="@+id/input"
+		    android:layout_width="wrap_content"
+		    android:layout_height="wrap_content"
+		    android:ems="10"
+		    android:height="25dp"
+		    android:hint="@string/send_a_message"
+		    android:imeOptions="actionSend"
+		    android:inputType="text"
+		    android:longClickable="true"
+		    android:selectAllOnFocus="false"
+		    android:textColor="#fff" android:layout_alignParentBottom="false" android:layout_alignParentLeft="true"
+		    android:layout_alignParentStart="true" android:layout_alignParentRight="true">
+		</EditText>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="메시지 전송"
+			android:id="@+id/sendChat"
+			android:layout_alignParentLeft="true" android:layout_alignParentBottom="true"
+			/>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="채팅방 삭제"
+			android:id="@+id/deleteBtn"
+			android:layout_alignParentBottom="true"
+			android:layout_alignParentRight="true"/>
+	</RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoomsListActivity" >
+
+    <ListView
+        android:id="@+id/roomslist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:dividerHeight="5dp"
+        android:padding="8dp" android:layout_above="@+id/relativeLayout">
+
+    </ListView>
+	<RelativeLayout
+		android:layout_width="fill_parent"
+		android:layout_height="50dip"
+		android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
+		android:layout_alignParentStart="true" android:id="@+id/relativeLayout">
+		<EditText
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:inputType="number"
+			android:ems="5"
+			android:id="@+id/productNumber" android:layout_alignParentBottom="true"
+			android:layout_alignParentLeft="true" android:layout_alignParentStart="true" android:hint="상품번호"
+			android:text="37" android:textColor="#2c2c2c"/>
+		<EditText
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:ems="9"
+			android:id="@+id/email"
+			android:hint="이메일"
+			android:layout_alignParentBottom="true" android:layout_toRightOf="@+id/productNumber"
+			android:text="test@naver.com" android:textColor="#2c2c2c"/>
+		<Button
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="채팅신청"
+			android:id="@+id/reqChat" android:layout_alignParentBottom="true" android:layout_toRightOf="@+id/email"/>
+	</RelativeLayout>
+
+</RelativeLayout>
